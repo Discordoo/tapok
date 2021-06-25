@@ -1,0 +1,31 @@
+{
+  "name": "tapok",
+  "version": "1.0.0",
+  "description": "Discordoo documentation files preprocessor (adds metadata into files)",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "tapok": "src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Discordoo/tapok.git"
+  },
+  "keywords": [
+    "discordoo",
+    "documentation"
+  ],
+  "author": "Mirdukkk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Discordoo/tapok/issues"
+  },
+  "homepage": "https://github.com/Discordoo/tapok#readme",
+  "dependencies": {
+    "meow": "^10.0.1",
+    "ora": "^5.4.1"
+  }
+}
