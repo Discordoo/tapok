@@ -4,15 +4,34 @@ import path from 'path'
 export default function read(dir) {
   const place = path.join(process.cwd(), dir, '/')
 
-  let classes, interfaces, enums, modules
+  let classes = [], interfaces = [], enums = [], modules = []
 
   try {
-    classes =    fs.readdirSync(place + 'classes')    .map(f => place + `classes/${f}`)
-    interfaces = fs.readdirSync(place + 'interfaces') .map(f => place + `interfaces/${f}`)
-    enums =      fs.readdirSync(place + 'enums')      .map(f => place + `enums/${f}`)
-    modules =    fs.readdirSync(place + 'modules')    .map(f => place + `modules/${f}`)
+    classes = fs.readdirSync(place + 'classes').map(f => place + `classes/${f}`)
   } catch (e) {
-    console.error('Error when reading directories:', e)
+    console.error('Error when reading classes:', e)
+  }
+
+  try {
+    interfaces = fs.readdirSync(place + 'interfaces') .map(f => place + `interfaces/${f}`)
+  } catch (e) {
+    console.error('Error when reading interfaces:', e)
+  }
+
+  try {
+    enums = fs.readdirSync(place + 'enums').map(f => place + `enums/${f}`)
+  } catch (e) {
+    console.error('Error when reading enums:', e)
+  }
+
+  try {
+    modules = fs.readdirSync(place + 'modules').map(f => place + `modules/${f}`)
+  } catch (e) {
+    console.error('Error when reading modules:', e)
+  }
+
+  if (classes.length + interfaces.length + enums.length + modules.length === 0) {
+    console.error('Looks like documentation is fully empty. Exiting.')
     process.exit(1)
   }
 
