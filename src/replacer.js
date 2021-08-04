@@ -15,7 +15,7 @@ export default function replace(files, spinner) {
     const metadata = `---\ntitle: ${file.type === 'module' ? withACapital(name) : name}\n---\n\n`
 
     const secondLine = fileContent[4]
-    file.content = file.content.replace(secondLine, '').replace(/\\>/g, '>')
+    file.content = file.content.replace(secondLine, '').replace(/\\&gt/g, 'gt')
     file.content = metadata + file.content
   })
 
