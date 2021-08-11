@@ -1,6 +1,6 @@
 {
   "name": "@discordoo/tapok",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Discordoo documentation files preprocessor (adds metadata into files)",
   "main": "src/index.js",
   "type": "module",
