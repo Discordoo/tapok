@@ -1,5 +1,5 @@
 <p align="center">
-<img width="420" src="https://user-images.githubusercontent.com/44965055/118376907-70cad500-b5d3-11eb-95c2-3397a3882163.png" alt="">
+<img width="420" src="https://user-images.githubusercontent.com/44965055/129632840-dcc56428-99f0-4ec9-953a-1e5d5c8e8f73.png" alt="">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/TFZtXeYVM5">
+  <a href="https://discord.gg/eHC8ynn2H3">
     <img 
       src="https://img.shields.io/discord/811663819721539674?color=7280DA&label=Discord&logo=discord&logoColor=white" 
       alt="Online"
@@ -22,8 +22,7 @@
 </p>
 <hr>
 
-Metadata preprocessor for Discordoo documentation
-=
+# Metadata preprocessor for Discordoo documentation
 
 Usage
 -
