@@ -17,8 +17,8 @@ export default function replace(files, spinner) {
     const secondLine = fileContent[4]
     file.content = metadata + file.content
       .replace(secondLine, '')
-      .replace(/(\\)?&gt/g, '>')
-      .replace(/(\\)?&lt/g, '<')
+      .replace(/(\\)?&gt;/g, '>')
+      .replace(/(\\)?&lt;/g, '<')
   })
 
   return files
