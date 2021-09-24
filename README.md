@@ -1,5 +1,5 @@
 <p align="center">
-<img width="420" src="https://user-images.githubusercontent.com/44965055/129632840-dcc56428-99f0-4ec9-953a-1e5d5c8e8f73.png" alt="">
+<img width="520" src="https://cdn.discordapp.com/attachments/531549268033404928/890941446092357692/ddoologo_new_1_banner_tapok.svg" alt="">
 </p>
 
 <p align="center">
