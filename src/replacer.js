@@ -1,5 +1,5 @@
-function withACapital(sting) {
-  return sting.slice(0, 1).toUpperCase() + sting.slice(1)
+function withACapital(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1)
 }
 
 export default function replace(files, spinner) {
