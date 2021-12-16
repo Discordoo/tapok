@@ -22,17 +22,21 @@
 </p>
 <hr>
 
-# Metadata preprocessor for Discordoo documentation
+# Discordoo documentation generator (generates json file)
+
+Big thanks
+=
+to [Federico Grandi](https://github.com/EndBug). The author of [this](https://github.com/dbots-pkg/ts-docgen) package. This repository is based on this person's code. [Sponsor Federico Grandi](https://github.com/sponsors/EndBug).
 
 Usage
 -
 ```shell
-$ tapok path/to/markdown/files
+$ tapok path/to/typedoc-result.json
 ```
 
-Examples
+Example
 -
 ```shell
-$ tapok ./docs
-# ┗ will add metadata to all .md files in subdirs classes/ interfaces/ enums/ modules/
+$ tapok ./docs.json -c ./typedoc-config.json
+  ┗ will typedoc docs.json using typedoc and then will replace result with ddoo-compatible json file.
 ```
