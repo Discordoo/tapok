@@ -2,14 +2,14 @@
   "name": "@discordoo/tapok",
   "version": "2.0.4",
   "description": "Discordoo documentation generator (generates json file)",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "type": "commonjs",
   "bin": {
-    "tapok": "dist/index.js"
+    "tapok": "dist/src/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npx rimraf dist && npm run build"
   },
   "repository": {
     "type": "git",
