@@ -4,6 +4,7 @@ import { typedoc } from './typedoc'
 import { read } from './read'
 import { generateDocs } from './docs'
 import { write } from './write'
+import { version, name } from '../package.json'
 
 const help = `
 Usage:
@@ -53,7 +54,7 @@ if (rawModules.length) {
 console.log('Rewritten typedoc json')
 
 console.log('Writing rewritten json...')
-write(cli.input[0], { modules })
+write(cli.input[0], { modules, time: Date.now(), generator: `${name} ${version}` })
 console.log('All done')
 
 process.exit(0)

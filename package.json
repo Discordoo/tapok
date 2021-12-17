@@ -1,6 +1,6 @@
 {
   "name": "@discordoo/tapok",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "description": "Discordoo documentation generator (generates json file)",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -32,7 +32,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@types/node": "^17.0.0",
+    "@types/node": "^12.0.0",
     "meow": "^9.0.0",
     "tslib": "^2.3.1",
     "typedoc": "^0.22.10"
