@@ -10,7 +10,7 @@ Usage:
   $ tapok path/to/typedoc-result.json
   
 Example:
-  $ tapok ./docs.json -c ./typedoc-config.json
+  $ tapok ./docs.json -c ./typedoc-config.json -e typedoc/entry/point.ts
     ┗ will generate docs.json using typedoc and then will replace result with ddoo-compatible json file.
 `
 
@@ -20,6 +20,11 @@ const cli = meow(help, {
       alias: 'c',
       type: 'string',
       isRequired: false
+    },
+    entry: {
+      alias: 'e',
+      type: 'string',
+      isRequired: false
     }
   }
 })
@@ -27,7 +32,7 @@ const cli = meow(help, {
 if (!cli.input.length) cli.showHelp(1)
 
 console.log('Starting typedoc json generation...')
-typedoc(cli.flags.config)
+typedoc(cli.flags.config, cli.flags.entry)
 console.log('Finished typedoc json generation')
 
 console.log('Reading typedoc json...')
@@ -35,9 +40,16 @@ const raw = read(cli.input[0])
 const modules: any[] = []
 
 console.log('Rewriting typedoc json...')
-raw.children.forEach(c => {
-  modules.push({ name: c.name, ...generateDocs(c) })
-})
+
+const rawModules = raw.children.filter(c => c.kindString === 'Module')
+if (rawModules.length) {
+  rawModules.forEach(c => {
+    modules.push({ name: c.name, ...generateDocs(c) })
+  })
+} else {
+  modules.push({ name: raw.name, ...generateDocs(raw) })
+}
+
 console.log('Rewritten typedoc json')
 
 console.log('Writing rewritten json...')

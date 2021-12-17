@@ -1,6 +1,6 @@
 {
   "name": "@discordoo/tapok",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Discordoo documentation generator (generates json file)",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -8,7 +8,8 @@
     "tapok": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -34,9 +34,10 @@ Usage
 $ tapok path/to/typedoc-result.json
 ```
 
-Example
+Examples
 -
 ```shell
 $ tapok ./docs.json -c ./typedoc-config.json
-  ┗ will typedoc docs.json using typedoc and then will replace result with ddoo-compatible json file.
+# ┗ will generate docs.json using typedoc and then will replace result with ddoo-compatible json file.
+$ tapok ./docs.json -e ./typedoc/entry/ts.ts
 ```
