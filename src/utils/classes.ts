@@ -8,8 +8,8 @@ export interface ClassDoc {
   name: string
   description?: string | undefined
   see?: string[] | undefined
-  extends?: [string] | undefined
-  implements?: [string] | undefined
+  extends?: DocType | undefined
+  implements?: DocType | undefined
   access?: 'private' | undefined
   abstract?: boolean | undefined
   deprecated?: boolean | undefined
@@ -38,14 +38,14 @@ export function parseClass(element: DeclarationReflection): ClassDoc {
     description: element.comment?.shortText?.trim(),
     see: element.comment?.tags?.filter((t) => t.tag === 'see')
       .map((t) => t.text.trim()),
-    extends: extended ? [parseTypeSimple(extended)] : undefined,
-    implements: implemented ? [parseTypeSimple(implemented)] : undefined,
+    extends: extended ? parseType(extended) : undefined,
+    implements: implemented ? parseType(implemented) : undefined,
     access:
       element.flags.isPrivate
       || element.comment?.tags?.some((t) => t.tag === 'private' || t.tag === 'internal')
         ? 'private'
         : undefined,
-    abstract: element.comment?.tags?.some((t) => t.tag === 'abstract'),
+    abstract: element.comment?.tags?.some((t) => t.tag === 'abstract') || element.flags?.isAbstract,
     deprecated: element.comment?.tags?.some((t) => t.tag === 'deprecated'),
     construct: construct ? parseClassMethod(construct) : undefined,
     props: props && props.length > 0 ? props.map(parseClassProp) : undefined,

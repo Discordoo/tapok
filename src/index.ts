@@ -10,6 +10,8 @@ import path from 'path'
 import * as process from 'process'
 
 const help = `
+${name} ${version}
+
 Usage:
   $ tapok path/to/typedoc-result.json
   $ tapok path/to/markdown-contents-file.json
