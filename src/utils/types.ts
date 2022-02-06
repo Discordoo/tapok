@@ -1,5 +1,6 @@
 import { JSONOutput } from 'typedoc'
 import DeclarationReflection = JSONOutput.DeclarationReflection
+import { inspect } from 'util'
 
 function isArrayType(value: any): value is JSONOutput.ArrayType {
   return typeof value == 'object' && value.type == 'array'
@@ -30,6 +31,9 @@ function isReflectionType(value: any): value is JSONOutput.ReflectionType {
 }
 function isLiteralType(value: any): value is JSONOutput.LiteralType {
   return typeof value == 'object' && value.type == 'literal'
+}
+function isTemplateLiteralType(value: any): value is JSONOutput.TemplateLiteralType {
+  return typeof value === 'object' && value.type === 'template-literal'
 }
 function isTupleType(value: any): value is JSONOutput.TupleType {
   return typeof value == 'object' && value.type == 'tuple'
@@ -63,13 +67,14 @@ export const typeUtil = {
   isReferenceType,
   isReflectionType,
   isLiteralType,
+  isTemplateLiteralType,
   isTupleType,
   isTypeOperatorType,
   isUnionType,
   isUnknownType
 }
 
-export function parseTypeSimple(t: JSONOutput.SomeType): string {
+export function parseTypeSimple(t: JSONOutput.SomeType | JSONOutput.TemplateLiteralType): string {
   const parseType = parseTypeSimple
 
   if (isArrayType(t)) {
@@ -141,12 +146,22 @@ export function parseTypeSimple(t: JSONOutput.SomeType): string {
       .join(' | ')
   }
   if (isQueryType(t)) {
-    return `(typeof ${parseType(t.queryType)})`
+    return `typeof ${parseType(t.queryType)}`
   }
   if (isInferredType(t) || isIntrinsicType(t) || isUnknownType(t)) {
     return t.name
   }
+  if (isTemplateLiteralType(t)) {
+    let result = t.head
 
+    for (let [ tp, str ] of t.tail) {
+      result += `\$\{${parseType(tp)}\}${str}`
+    }
+
+    // console.log('template literal type:', result)
+    return '`' + result + '`'
+  }
+  // console.log('an undecipherable type was found:', inspect(t, { depth: 10 }))
   return 'unknown'
 }
 
