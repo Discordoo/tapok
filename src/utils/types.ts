@@ -155,7 +155,7 @@ export function parseTypeSimple(t: JSONOutput.SomeType | JSONOutput.TemplateLite
     let result = t.head
 
     for (let [ tp, str ] of t.tail) {
-      result += `\$\{${parseType(tp)}\}${str}`
+      result += `${parseType(tp)}${str}`
     }
 
     // console.log('template literal type:', result)
@@ -170,7 +170,7 @@ const splitVarName = (str: string) => {
   let currGroup: string[] = [],
     currStr = ''
 
-  const isASymbol = (char: string) => '-!$%^&*()_+|~=`{}[]:;<>?,. '.includes(char) // string quotes excluded
+  const isASymbol = (char: string) => '-!$%^&*()+|~=`{}[]:;<>?,. '.includes(char) // string quotes and _ excluded
 
   for (const char of str) {
     const currentlyInASymbolSection = isASymbol(currStr[0]),
