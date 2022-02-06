@@ -1,6 +1,6 @@
 import { JSONOutput } from 'typedoc'
-import DeclarationReflection = JSONOutput.DeclarationReflection
 import { inspect } from 'util'
+import DeclarationReflection = JSONOutput.DeclarationReflection
 
 function isArrayType(value: any): value is JSONOutput.ArrayType {
   return typeof value == 'object' && value.type == 'array'
@@ -33,7 +33,7 @@ function isLiteralType(value: any): value is JSONOutput.LiteralType {
   return typeof value == 'object' && value.type == 'literal'
 }
 function isTemplateLiteralType(value: any): value is JSONOutput.TemplateLiteralType {
-  return typeof value === 'object' && value.type === 'template-literal'
+  return typeof value == 'object' && value.type === 'template-literal'
 }
 function isTupleType(value: any): value is JSONOutput.TupleType {
   return typeof value == 'object' && value.type == 'tuple'
@@ -43,6 +43,12 @@ function isTypeOperatorType(value: any): value is JSONOutput.TypeOperatorType {
 }
 function isUnionType(value: any): value is JSONOutput.UnionType {
   return typeof value == 'object' && value.type == 'union'
+}
+function isOptionalType(value: any): value is JSONOutput.OptionalType {
+  return typeof value == 'object' && value.type === 'optional'
+}
+function isMappedType(value: any): value is JSONOutput.MappedType {
+  return typeof value == 'object' && value.type === 'mapped'
 }
 function isUnknownType(value: any): value is JSONOutput.UnknownType {
   return typeof value == 'object' && value.type == 'unknown'
@@ -74,7 +80,7 @@ export const typeUtil = {
   isUnknownType
 }
 
-export function parseTypeSimple(t: JSONOutput.SomeType | JSONOutput.TemplateLiteralType): string {
+export function parseTypeSimple(t: JSONOutput.SomeType | JSONOutput.TemplateLiteralType | JSONOutput.MappedType): string {
   const parseType = parseTypeSimple
 
   if (isArrayType(t)) {
@@ -161,7 +167,16 @@ export function parseTypeSimple(t: JSONOutput.SomeType | JSONOutput.TemplateLite
     // console.log('template literal type:', result)
     return '`' + result + '`'
   }
-  // console.log('an undecipherable type was found:', inspect(t, { depth: 10 }))
+  if (isOptionalType(t)) {
+    return parseType(t.elementType) + '?'
+  }
+  if (isMappedType(t)) {
+    return '{ ' +
+      `${ t.readonlyModifier === '+' ? 'readonly ' : '' }` +
+      `[${ t.parameter } in ${ parseType(t.parameterType) }]${ t.optionalModifier === '+' ? '?' : '' }` +
+      `: ${ parseType(t.templateType) } }`
+  }
+  console.log('an undecipherable type was found:', inspect(t, { depth: 10 }))
   return 'unknown'
 }
 
@@ -181,7 +196,11 @@ const splitVarName = (str: string) => {
       currStr = char
 
       if (!charIsASymbol) {
-        res.push(currGroup)
+        if (currGroup[0] === 'is' && currGroup[1] === ' ') {
+          res[res.length - 1][0] += ' is'
+        } else {
+          res.push(currGroup)
+        }
         currGroup = []
       }
     } else {
