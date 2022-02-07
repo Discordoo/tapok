@@ -60,7 +60,7 @@ export function parseDescription(e: JSONOutput.DeclarationReflection | undefined
   if (!e) return undefined
 
   const short = e.comment?.shortText?.trim(),
-    long = e.comment?.shortText?.trim()
+    long = e.comment?.text?.trim()
 
   switch (true) {
     case short !== undefined && long !== undefined: {
