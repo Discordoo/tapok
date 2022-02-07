@@ -1,6 +1,6 @@
 {
   "name": "@discordoo/tapok",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "description": "Discordoo documentation generator (generates json file)",
   "main": "dist/src/index.js",
   "type": "commonjs",
