@@ -63,8 +63,10 @@ export function parseDescription(e: JSONOutput.DeclarationReflection | undefined
     long = e.comment?.shortText?.trim()
 
   switch (true) {
-    case short !== undefined && long !== undefined:
-      return short + '\n' + long
+    case short !== undefined && long !== undefined: {
+      if (short !== undefined) return short + '\n' + long
+      return short
+    }
     case short !== undefined && long === undefined:
       return short
     case long !== undefined && short === undefined:
