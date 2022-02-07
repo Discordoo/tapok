@@ -218,7 +218,7 @@ export function parseType(t: JSONOutput.SomeType, isOptional?: boolean): DocType
   const res = parseTypeSimple(t)
 
   if (isOptional) {
-    return [ [ [ 'undefined', '|' ], ...splitVarName(res) ] ]
+    return [ [ [ 'undefined', ' | ' ], ...splitVarName(res) ] ]
   } else {
     return [ splitVarName(res) ]
   }
