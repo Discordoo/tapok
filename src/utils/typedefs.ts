@@ -22,7 +22,7 @@ export interface TypedefDoc {
 export function parseTypedef(element: DeclarationReflection): TypedefDoc {
   const baseReturn: TypedefDoc = {
     name: element.name,
-    description: element.comment?.shortText?.trim(),
+    description: element.comment?.text?.trim(),
     see: element.comment?.tags?.filter((t) => t.tag === 'see')
       .map((t) => t.text.trim()),
     access:
@@ -46,7 +46,7 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
       props: element.children?.length
         ? element.children.map((child) => ({
           name: child.name,
-          description: child.comment?.shortText?.trim(),
+          description: child.comment?.text?.trim(),
           type: typeof child.defaultValue == 'undefined' ? undefined : [[[child.defaultValue]]],
         }))
         : undefined,
@@ -64,7 +64,7 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
     if (children && children.length > 0) {
       const props: ClassMethodParamDoc[] = children.map((child) => ({
         name: child.name,
-        description: child.comment?.shortText?.trim() ?? child.signatures?.[0]?.comment?.shortText?.trim(),
+        description: child.comment?.text?.trim() ?? child.signatures?.[0]?.comment?.text?.trim(),
         optional: child.flags.isOptional ?? typeof child.defaultValue != 'undefined',
         default:
           child.comment?.tags?.find((t) => t.tag === 'default')?.text?.trim() ??
@@ -92,7 +92,7 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
 
       const params: ClassMethodParamDoc[] | undefined = sig.parameters?.map((param) => ({
         name: param.name,
-        description: param.comment?.shortText?.trim(),
+        description: param.comment?.text?.trim(),
         optional: param.flags.isOptional ?? typeof param.defaultValue != 'undefined',
         default:
           param.comment?.tags?.find((t) => t.tag === 'default')?.text?.trim() ??
@@ -102,7 +102,7 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
 
       return {
         ...baseReturn,
-        description: sig.comment?.shortText?.trim(),
+        description: sig.comment?.text?.trim(),
         see: sig.comment?.tags?.filter((t) => t.tag === 'see').map((t) => t.text.trim()),
         access:
           sig.flags.isPrivate || sig.comment?.tags?.some((t) => t.tag === 'private' || t.tag === 'internal')
