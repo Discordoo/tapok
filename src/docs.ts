@@ -56,6 +56,24 @@ export function generateDocs(data: any): CodeDoc {
   }
 }
 
+export function parseDescription(e: JSONOutput.DeclarationReflection | undefined): string | undefined {
+  if (!e) return undefined
+
+  const short = e.comment?.shortText?.trim(),
+    long = e.comment?.shortText?.trim()
+
+  switch (true) {
+    case short !== undefined && long !== undefined:
+      return short + '\n' + long
+    case short !== undefined && long === undefined:
+      return short
+    case long !== undefined && short === undefined:
+      return long
+    default:
+      return undefined
+  }
+}
+
 function parseRootElement(element: DeclarationReflection) {
   switch (element.kindString) {
     case 'Class':
