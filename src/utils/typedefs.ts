@@ -71,12 +71,12 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
           (child.defaultValue === '...' ? undefined : child.defaultValue),
         type: child.type
           ?
-          parseType(child.type as any)
+          parseType(child.type as any, child.flags.isOptional)
           : child.kindString === 'Method'
             ? parseType({
               type: 'reflection',
               declaration: child,
-            })
+            }, child.flags.isOptional)
             : undefined,
       }));
 
@@ -97,7 +97,7 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
         default:
           param.comment?.tags?.find((t) => t.tag === 'default')?.text?.trim() ??
           (param.defaultValue === '...' ? undefined : param.defaultValue),
-        type: param.type ? parseType(param.type as any) : undefined,
+        type: param.type ? parseType(param.type as any, param.flags.isOptional) : undefined,
       }));
 
       return {

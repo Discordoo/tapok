@@ -89,7 +89,7 @@ function parseClassProp(element: DeclarationReflection): ClassPropDoc {
     default:
       element.comment?.tags?.find((t) => t.tag === 'default')?.text?.trim() ??
       (element.defaultValue === '...' ? undefined : element.defaultValue),
-    type: element.type ? parseType(element.type as any) : undefined,
+    type: element.type ? parseType(element.type as any, element.flags.isOptional) : undefined,
     meta: parseMeta(element),
   }
 

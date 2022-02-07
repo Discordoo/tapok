@@ -74,6 +74,8 @@ if (cli.flags.m || cli.flags.markdown) {
   process.exit(0)
 }
 
+console.log(`${name} ${version}`)
+
 console.log('Starting typedoc json generation...')
 typedoc(cli.flags.config, cli.flags.entry)
 console.log('Finished typedoc json generation')

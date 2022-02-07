@@ -214,8 +214,14 @@ const splitVarName = (str: string) => {
 }
 
 export type DocType = string[][] | string[][][]
-export function parseType(t: JSONOutput.SomeType) {
-  return [splitVarName(parseTypeSimple(t))]
+export function parseType(t: JSONOutput.SomeType, isOptional?: boolean): DocType {
+  const res = parseTypeSimple(t)
+
+  if (isOptional) {
+    return [ [ [ 'undefined', '|' ], ...splitVarName(res) ] ]
+  } else {
+    return [ splitVarName(res) ]
+  }
 }
 
 export declare function assert<T>(val: any): asserts val is T
