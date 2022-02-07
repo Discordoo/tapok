@@ -64,7 +64,7 @@ export function parseDescription(e: JSONOutput.DeclarationReflection | undefined
 
   switch (true) {
     case short !== undefined && long !== undefined: {
-      if (short !== undefined) return short + '\n' + long
+      if (short !== long) return short + '\n' + long
       return short
     }
     case short !== undefined && long === undefined:
