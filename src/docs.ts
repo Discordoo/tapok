@@ -9,6 +9,7 @@ interface CodeDoc {
   enums: TypedefDoc[]
   types: TypedefDoc[]
   functions: TypedefDoc[]
+  variables: TypedefDoc[]
 }
 
 export function generateDocs(data: any): CodeDoc {
@@ -16,7 +17,8 @@ export function generateDocs(data: any): CodeDoc {
     interfaces: TypedefDoc[] = [],
     enums: TypedefDoc[] = [],
     types: TypedefDoc[] = [],
-    functions: TypedefDoc[] = []
+    functions: TypedefDoc[] = [],
+    variables: TypedefDoc[] = []
 
   for (const c of data.children ?? []) {
     const { type, value } = parseRootElement(c)
@@ -38,6 +40,9 @@ export function generateDocs(data: any): CodeDoc {
       case 'function':
         functions.push(value)
         break
+      case 'variable':
+        variables.push(value)
+        break
     }
   }
 
@@ -47,6 +52,7 @@ export function generateDocs(data: any): CodeDoc {
     types,
     enums,
     functions,
+    variables,
   }
 }
 
@@ -75,6 +81,11 @@ function parseRootElement(element: DeclarationReflection) {
     case 'Function':
       return {
         type: 'function',
+        value: parseTypedef(element)
+      }
+    case 'Variable':
+      return {
+        type: 'variable',
         value: parseTypedef(element)
       }
     default:

@@ -16,6 +16,7 @@ export interface TypedefDoc {
   returns?: DocType | undefined;
   returnsDescription?: string | undefined;
   meta?: DocMeta | undefined;
+  value?: string | undefined;
 }
 
 export function parseTypedef(element: DeclarationReflection): TypedefDoc {
@@ -51,6 +52,8 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
         : undefined,
     };
   } else if (element.kindString === 'Function') {
+    typeDef = element
+  } else if (element.kindString === 'Variable') {
     typeDef = element
   }
 
@@ -111,8 +114,16 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
         returnsDescription: sig.comment?.returns?.trim(),
       };
     }
+
+    // this is variable typedef
+    if (element.kindString === 'Variable') {
+      return {
+        ...baseReturn,
+        value: element.defaultValue === '...' ? undefined : element.defaultValue
+      }
+    }
   }
 
-  // It's neither an interface-like or a function type
+  // It's neither an interface-like or a function type or a variable type
   return baseReturn;
 }
