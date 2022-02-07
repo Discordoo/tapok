@@ -35,7 +35,7 @@ export function parseClass(element: DeclarationReflection): ClassDoc {
 
   return {
     name: element.name === 'default' ? path.parse(meta?.file ?? 'default').name : element.name,
-    description: element.comment?.text?.trim(),
+    description: (element.comment?.shortText?.trim() ?? '') + (element.comment?.text?.trim() ?? '') || undefined,
     see: element.comment?.tags?.filter((t) => t.tag === 'see')
       .map((t) => t.text.trim()),
     extends: extended ? parseType(extended) : undefined,
@@ -74,7 +74,7 @@ interface ClassPropDoc {
 function parseClassProp(element: DeclarationReflection): ClassPropDoc {
   const base: ClassPropDoc = {
     name: element.name,
-    description: element.comment?.text?.trim(),
+    description: (element.comment?.shortText?.trim() ?? '') + (element.comment?.text?.trim() ?? '') || undefined,
     see: element.comment?.tags?.filter((t) => t.tag === 'see')
       .map((t) => t.text.trim()),
     scope: element.flags.isStatic ? 'static' : undefined,
@@ -110,7 +110,7 @@ function parseClassProp(element: DeclarationReflection): ClassPropDoc {
 
     return {
       ...res,
-      description: getter.comment?.text?.trim(),
+      description: (getter.comment?.shortText?.trim() ?? '') + (getter.comment?.text?.trim() ?? '') || undefined,
       see: getter.comment?.tags?.filter((t) => t.tag === 'see')
         .map((t) => t.text.trim()),
       access:
@@ -170,7 +170,7 @@ export function parseClassMethod(element: DeclarationReflection): ClassMethodDoc
 
   return {
     name: element.name,
-    description: signature.comment?.text?.trim(),
+    description: (signature.comment?.shortText?.trim() ?? '') + (signature.comment?.text?.trim() ?? '') || undefined,
     see: signature.comment?.tags?.filter((t) => t.tag === 'see').map((t) => t.text.trim()),
     scope: element.flags.isStatic ? 'static' : undefined,
     access:
@@ -193,7 +193,7 @@ export type ClassMethodParamDoc = Exclude<ClassMethodDoc['params'], undefined>[n
 export function parseParam(param: DeclarationReflection): ClassMethodParamDoc {
   return {
     name: param.name,
-    description: param.comment?.text?.trim() ?? param.comment?.shortText?.trim(),
+    description: (param.comment?.shortText?.trim() ?? '') + (param.comment?.text?.trim() ?? '') || undefined,
     optional: param.flags.isOptional ?? typeof param.defaultValue != 'undefined',
     default:
       param.comment?.tags?.find((t) => t.tag === 'default')?.text?.trim() ??
