@@ -124,7 +124,7 @@ function parseRootElement(element: DeclarationReflection) {
         value: parseTypedef(element)
       }
     case 'Namespace':
-      return element.children
+      return element.children?.map(v => v.isNonExported = true)
     default:
       return {}
   }

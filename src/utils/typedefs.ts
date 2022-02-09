@@ -7,17 +7,18 @@ import { parseDescription } from '../docs'
 
 export interface TypedefDoc {
   name: string;
-  description?: string | undefined;
-  see?: string[] | undefined;
-  access?: 'private' | undefined;
-  deprecated?: boolean | undefined;
-  type?: DocType | undefined;
-  props?: ClassMethodParamDoc[] | undefined;
-  params?: ClassMethodParamDoc[] | undefined;
-  returns?: DocType | undefined;
-  returnsDescription?: string | undefined;
-  meta?: DocMeta | undefined;
-  value?: string | undefined;
+  description?: string
+  see?: string[]
+  access?: 'private'
+  deprecated?: boolean
+  type?: DocType
+  props?: ClassMethodParamDoc[]
+  params?: ClassMethodParamDoc[]
+  returns?: DocType
+  returnsDescription?: string
+  meta?: DocMeta
+  value?: string
+  isNonExported?: boolean
 }
 
 export function parseTypedef(element: DeclarationReflection): TypedefDoc {
@@ -34,7 +35,8 @@ export function parseTypedef(element: DeclarationReflection): TypedefDoc {
     deprecated: element.comment?.tags?.some((t) => t.tag === 'deprecated'),
     type: element.type ? parseType(element.type as any) : undefined,
     meta: parseMeta(element),
-  };
+    isNonExported: element.isNonExported,
+  }
 
   let typeDef: DeclarationReflection | undefined;
   if (typeUtil.isReflectionType(element.type)) {
