@@ -34,7 +34,7 @@ export function generateDocs(data: any): CodeDoc {
 
       const { value, type } = parsed
       if (!value) {
-        console.log('Unknown element warning', parsed)
+        console.log('Unknown element warning', parsed, c)
         continue
       }
 
@@ -124,7 +124,7 @@ function parseRootElement(element: DeclarationReflection) {
         value: parseTypedef(element)
       }
     case 'Namespace':
-      return element.children?.map(v => v.isNonExported = true)
+      return element.children?.map(v => { v.isNonExported = true; return v })
     default:
       return {}
   }
