@@ -42,6 +42,7 @@ Flags
 --entry -e      string    typedoc entry point (used in typedoc --entry)
 --markdown -m   boolean   switch to markdown files processing
 --directory -d  string    directory where read markdown files
+--include -i    string    include non-exported types or not
 ```
 
 Examples

@@ -50,11 +50,18 @@ const cli = meow(help, {
       alias: 'd',
       type: 'string',
       isRequired: flags => !!flags.markdown
+    },
+    include: {
+      alias: 'i',
+      type: 'boolean',
+      isRequired: false
     }
   }
 })
 
 if (!cli.input.length) cli.showHelp(1)
+
+console.log(`You're using ${name} v${version}`)
 
 if (cli.flags.m || cli.flags.markdown) {
   console.log('Gathering all .md files from specified directory...')
@@ -74,10 +81,8 @@ if (cli.flags.m || cli.flags.markdown) {
   process.exit(0)
 }
 
-console.log(`${name} ${version}`)
-
 console.log('Starting typedoc json generation...')
-typedoc(cli.flags.config, cli.flags.entry)
+typedoc(cli.flags.config, cli.flags.entry, cli.flags.include)
 console.log('Finished typedoc json generation')
 
 console.log('Reading typedoc json...')
