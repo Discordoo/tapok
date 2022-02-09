@@ -20,29 +20,44 @@ export function generateDocs(data: any): CodeDoc {
     functions: TypedefDoc[] = [],
     variables: TypedefDoc[] = []
 
-  for (const c of data.children ?? []) {
-    const { type, value } = parseRootElement(c)
-    if (!value) continue
+  docs(data.children)
 
-    switch (type) {
-      case 'class':
-        classes.push(value)
-        break
-      case 'type':
-        types.push(value)
-        break
-      case 'enum':
-        enums.push(value)
-        break
-      case 'interface':
-        interfaces.push(value)
-        break
-      case 'function':
-        functions.push(value)
-        break
-      case 'variable':
-        variables.push(value)
-        break
+  function docs(d) {
+    for (const c of d ?? []) {
+      const parsed = parseRootElement(c)
+      if (!parsed) continue
+
+      if (Array.isArray(parsed)) {
+        docs(parsed)
+        continue
+      }
+
+      const { value, type } = parsed
+      if (!value) {
+        console.log('Unknown element warning', parsed)
+        continue
+      }
+
+      switch (type) {
+        case 'class':
+          classes.push(value)
+          break
+        case 'type':
+          types.push(value)
+          break
+        case 'enum':
+          enums.push(value)
+          break
+        case 'interface':
+          interfaces.push(value)
+          break
+        case 'function':
+          functions.push(value)
+          break
+        case 'variable':
+          variables.push(value)
+          break
+      }
     }
   }
 
@@ -108,6 +123,8 @@ function parseRootElement(element: DeclarationReflection) {
         type: 'variable',
         value: parseTypedef(element)
       }
+    case 'Namespace':
+      return element.children
     default:
       return {}
   }
