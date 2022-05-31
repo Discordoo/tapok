@@ -6,7 +6,7 @@
   <b>
     Discord bots. Simplified and boosted
     <span> · </span>
-    <a href="https://ddoo.dev/prov">Docs & Guide</a>
+    <a href="https://ddoo.dev">Docs & Guide</a>
     <span> · </span>
     <a href="https://github.com/ddoodev/discordoo/blob/develop/CONTRIBUTING.md">Contribute</a>
   </b>
