@@ -6,14 +6,14 @@
   <b>
     Discord bots. Simplified and boosted
     <span> · </span>
-    <a href="https://docs.discordoo.xyz">Docs & Guide</a>
+    <a href="https://ddoo.dev/prov">Docs & Guide</a>
     <span> · </span>
-    <a href="https://github.com/Discordoo/discordoo/blob/develop/CONTRIBUTING.md">Contribute</a>
+    <a href="https://github.com/ddoodev/discordoo/blob/develop/CONTRIBUTING.md">Contribute</a>
   </b>
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/eHC8ynn2H3">
+  <a href="https://ddoo.dev/discord">
     <img 
       src="https://img.shields.io/discord/811663819721539674?color=7280DA&label=Discord&logo=discord&logoColor=white" 
       alt="Online"
