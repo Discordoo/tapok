@@ -1,5 +1,5 @@
 <p align="center">
-<img width="520" src="https://cdn.discordapp.com/attachments/531549268033404928/891388371384029184/ddoologo_new_1.2_banner_tapok.svg" alt="">
+<img width="520" src="https://cdn.ddoo.dev/github/ddoologo_new_1.2_banner_tapok.svg" alt="">
 </p>
 
 <p align="center">
